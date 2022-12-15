@@ -130,14 +130,15 @@ export const UpdateForm = (props:AlbumFormProps) => {
     const { register, handleSubmit } = useForm({  });
 
     const onSubmit = async (data:any, event:any) => {
-        console.log(props.id)
+        console.log(data)
         if (props.id!){
             // if it already exists, just update with the new info
             let token = localStorage.getItem('userId')
-            console.log(data);
+            
+            console.log(props);
             await serverCalls.update(token, props.id!, data);
             console.log(`Updated: ${data} ${props.id}`);
-            // window.location.reload();
+            window.location.reload();
         } else {
             // if it does not exist, we will make a deezer api call
             // to get the info that we are not asking the user for
