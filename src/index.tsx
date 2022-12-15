@@ -12,6 +12,8 @@ import { firebaseConfig } from './firebaseConfig';
 import { Home } from './components/Home'
 import { Profile } from './components/Profile'
 import { SignIn, SignUp } from './components/SignIn'
+import { store } from './redux/store'
+import { theme } from './Theme/themes'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -19,8 +21,8 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <FirebaseAppProvider firebaseConfig={firebaseConfig}>
-      {/* <Provider store={store}> */}
-        {/* <ThemeProvider theme={theme}> */}
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
           <Router>
             <Routes>
               <Route path='/' element={<Home title={'Album Exchange'} />} />
@@ -29,8 +31,8 @@ root.render(
               <Route path='/signup' element={<SignUp />} />
             </Routes>
           </Router>
-        {/* </ThemeProvider> */}
-      {/* </Provider> */}
+        </ThemeProvider>
+      </Provider>
     </FirebaseAppProvider>
   </React.StrictMode>
 );

@@ -6,7 +6,8 @@ import { getAuth,
     GoogleAuthProvider,
     signOut,
     createUserWithEmailAndPassword,
-    signInWithEmailAndPassword } from 'firebase/auth'
+    signInWithEmailAndPassword, 
+    onAuthStateChanged} from 'firebase/auth'
 import { 
     Container,
     Button,
@@ -94,6 +95,12 @@ export const GoogleButton = (props:buttonProps) =>{
     const signIn = async () =>{
         await signInWithGoogle()
         localStorage.setItem('myAuth', 'true')
+        onAuthStateChanged(auth, (user) => {
+
+        if (user) {
+        localStorage.setItem('userId', user.uid)
+        };
+    });
         navigate('/dashboard')
     };
     const signUsOut = async () => {

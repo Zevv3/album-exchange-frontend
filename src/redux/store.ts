@@ -1,8 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
-// import { reducer } from './slices/rootSlice'
+import { reducer } from './slices/rootSlice'
 
 export const store = configureStore({
-    // reducer,
-    // devTools: true
-    'place': 'holder'
+    reducer,
+    devTools: true
 });
