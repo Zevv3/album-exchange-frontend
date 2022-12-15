@@ -2,7 +2,7 @@ let token = localStorage.getItem('userId')
 
 export const serverCalls = {
     get: async () => {
-        const response = await fetch(`http://127.0.0.1:5000/api/albums/${token}`, {
+        const response = await fetch(`https://yummy-charming-promise.glitch.me/api/albums/${token}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -15,7 +15,7 @@ export const serverCalls = {
     },
 
     create: async (data:any) => {
-        const response = await fetch(`http://127.0.0.1:5000/api/albums`, {
+        const response = await fetch(`https://yummy-charming-promise.glitch.me/api/albums`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ export const serverCalls = {
     },
 
     update: async (token:any, id:string, data:any = {}) => {
-        const response = await fetch(`http://127.0.0.1:5000/api/albums/${token}/${id}`, {
+        const response = await fetch(`https://yummy-charming-promise.glitch.me/api/albums/${token}/${id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ export const serverCalls = {
     },
 
     getOne: async (token:any, id:string) => {
-        const response = await fetch(`http://127.0.0.1:5000/api/albums/${token}/${id}`, {
+        const response = await fetch(`https://yummy-charming-promise.glitch.me/api/albums/${token}/${id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ export const serverCalls = {
     },
 
     delete: async (id:string) => {
-        const response = await fetch(`http://127.0.0.1:5000/api/albums/${id}`, {
+        const response = await fetch(`https://yummy-charming-promise.glitch.me/api/albums/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -62,7 +62,7 @@ export const serverCalls = {
     },
 
     review: async (token:any, id:string, data:any = {}) => {
-        const response = await fetch(`http://127.0.0.1:5000/api/albums/review/${token}/${id}`, {
+        const response = await fetch(`https://yummy-charming-promise.glitch.me/api/albums/review/${token}/${id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -72,7 +72,7 @@ export const serverCalls = {
     },
 
     sendToExchange: async (data:any) => {
-        const response = await fetch(`http://127.0.0.1:5000/api/exchange`, {
+        const response = await fetch(`https://yummy-charming-promise.glitch.me/api/exchange`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -87,7 +87,7 @@ export const serverCalls = {
     },
 
     getExchange: async () => {
-        const response = await fetch(`http://127.0.0.1:5000/api/exchange`, {
+        const response = await fetch(`https://yummy-charming-promise.glitch.me/api/exchange`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
