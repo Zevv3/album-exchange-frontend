@@ -94,7 +94,7 @@ export const GoogleButton = (props:buttonProps) =>{
     const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth)
     const signIn = async () =>{
         await signInWithGoogle()
-        localStorage.setItem('myAuth', 'true')
+        localStorage.setItem('auth', 'true')
         onAuthStateChanged(auth, (user) => {
 
         if (user) {
@@ -105,13 +105,13 @@ export const GoogleButton = (props:buttonProps) =>{
     };
     const signUsOut = async () => {
         await signOut(auth)
-        localStorage.setItem('myAuth', 'false')
+        localStorage.setItem( 'auth', 'false')
         navigate('/signin')
     };
     if (loading) {
         return <CircularProgress />
     };
-    let MyAuth = localStorage.getItem('myAuth')
+    let MyAuth = localStorage.getItem('auth')
 
     if (MyAuth == "true"){
         return (
@@ -140,7 +140,7 @@ export const SignIn = () => {
         console.log(data.email, data.password);
         signInWithEmailAndPassword(auth, data.email, data.password)
             .then((userCredential) => {
-                localStorage.setItem('myAuth', 'true')
+                localStorage.setItem('auth', 'true')
                 const user = userCredential.user
                 localStorage.setItem('userId', user.uid)
                 navigate('/profile')

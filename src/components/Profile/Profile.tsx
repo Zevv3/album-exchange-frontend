@@ -11,6 +11,7 @@ import { Drawer as MUIDrawer,
     Button,
     CssBaseline, 
     Box,
+    Stack,
     Dialog,
     DialogTitle,
     DialogContent,
@@ -22,7 +23,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { ChevronRight,ChevronLeft } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
-import { Navbar } from '../sharedComponents';
+import records from '../../assets/images/records.jpg'
+import { NavBar } from '../sharedComponents';
 import { DataTable } from '../DataTable'
 import { AlbumForm } from '../AlbumForm';
 import { theme } from "../../Theme/themes";
@@ -49,20 +51,13 @@ const myStyles = {
         marginRight: theme.spacing(2),
     },
     content: {
-        flexGrow: 1,
-        padding: theme.spacing(3),
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        marginLeft: 0,
-    },
-    contentShift: {
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: 0,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(6, 85, 121, 1)), url(${records});`,
+        width: "100%",
+        height: "1250px",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        position: "absolute"
     },
     toolbar: {
         display: 'flex',
@@ -91,26 +86,31 @@ export const Profile = () => {
     let userId = localStorage.getItem('userId')
 
     return (
-        <Root>
-            <Navbar />
-            <h1>Welcome back to the Album Exchange!</h1>
-            <h3>Below, you can view the albums you have favorited and submit any of them to the next Exchange.</h3>
-            <p>Your Token: {userId}</p>
-            <h2>Albums In Your Library</h2>
-            <Button sx = { myStyles.toolbar_button } onClick={handleDialogClickOpen}>Add An Album</Button>
-                <Dialog open={dialogOpen} onClose={handleDialogClickClose} aria-labelledby='form-dialog-title'>
-                    <DialogTitle id='form-dialog-title'>Add New Album</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText>Add A New Album</DialogContentText>
-                        <AlbumForm />
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick = {handleDialogClickClose} color = 'primary'>Cancel</Button>
-                    </DialogActions>
-                </Dialog>
-            
-            <DataTable />
-        </Root>
+        <Box sx={{ display: 'flex' }}>
+            <CssBaseline />
+            <NavBar />
+            <Box sx={ myStyles.content }>
+            <h1>Hidden text for spacing</h1>
+            <h6>More spacing</h6>
+                <h1>Welcome back to the Album Exchange!</h1>
+                <h3>Below, you can view the albums you have favorited and submit any of them to the next Exchange.</h3>
+                {/* <p>Your Token: {userId}</p> */}
+                <h2>Albums In Your Library</h2>
+                <Button sx = { myStyles.toolbar_button } onClick={handleDialogClickOpen}>Add An Album</Button>
+                    <Dialog open={dialogOpen} onClose={handleDialogClickClose} aria-labelledby='form-dialog-title'>
+                        <DialogTitle id='form-dialog-title'>Add New Album</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>Add A New Album</DialogContentText>
+                            <AlbumForm />
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick = {handleDialogClickClose} color = 'primary'>Cancel</Button>
+                        </DialogActions>
+                    </Dialog>
+                
+                <DataTable />
+            </Box>
+        </Box>
 
     )
 };

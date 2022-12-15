@@ -11,6 +11,8 @@ const rootSlice = createSlice({
         label: 'Vroom Vroom Recordings',
         cover_url: 'https://api.deezer.com/album/12391914/image',
         deezer_id: '12391914',
+        rating: '',
+        review: '',
         user_token: 'GDu5zSE4HmQ4aYU32ALrQeyrnB93'
     },
     reducers: {
@@ -22,9 +24,11 @@ const rootSlice = createSlice({
         chooseLabel: (state, action) => { state.label = action.payload },
         chooseCover: (state, action) => { state.cover_url = action.payload },
         chooseDeezerId: (state, action) => { state.deezer_id = action.payload },
+        chooseRating: (state, action) => { state.rating = action.payload },
+        chooseReview: (state, action) => { state.review = action.payload },
         chooseUser: (state, action) => { state.user_token = action.payload }
     }
 });
 
 export const reducer = rootSlice.reducer;
-export const { chooseArtist, chooseTitle, chooseReleaseDate, chooseGenre, chooseTracks, chooseLabel, chooseCover, chooseDeezerId, chooseUser } = rootSlice.actions;
+export const { chooseArtist, chooseTitle, chooseReleaseDate, chooseGenre, chooseTracks, chooseLabel, chooseCover, chooseDeezerId, chooseUser, chooseRating, chooseReview } = rootSlice.actions;

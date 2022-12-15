@@ -11,7 +11,7 @@ import {
 import { getAuth } from 'firebase/auth';
 import { serverCalls } from '../../api';
 import { useGetData } from '../../custom-hooks';
-import { AlbumForm, UpdateForm } from '../AlbumForm';
+import { AlbumForm, UpdateForm, ReviewForm } from '../AlbumForm';
 
 const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 90 },
@@ -30,7 +30,7 @@ const columns: GridColDef[] = [
     {
       field: 'release_date',
       headerName: 'Release Date',
-      width: 110,
+      width: 150,
       editable: true,
     },
     {
@@ -41,7 +41,7 @@ const columns: GridColDef[] = [
     },
     {
       field: 'number_of_tracks',
-      headerName: 'Number Of Tracks',
+      headerName: 'Tracks',
       width: 75,
       editable: true,
     },
@@ -50,6 +50,18 @@ const columns: GridColDef[] = [
       headerName: 'Label',
       width: 200,
       editable:true
+    },
+    {
+      field: 'rating',
+      headerName: 'Rating',
+      width: 75,
+      editable: true
+    },
+    {
+      field: 'review',
+      headerName: 'Review',
+      width: 700,
+      editable: true
     }
 ];
 
@@ -57,50 +69,77 @@ interface gridData{
     data:{
       id?:string;
     };
-  };
+};
   
   export const DataTable = () => {
       let { albumData, getData } = useGetData();
-      let [open, setOpen] = useState(false);
+      let [openUpdate, setOpenUpdate] = useState(false);
+      let [openReview, setOpenReview] = useState(false);
       let [gridData, setData] = useState<GridSelectionModel>([]);
+      let token = localStorage.getItem('userId')
   
-      let handleOpen = () => {
-        setOpen(true);
+      let handleOpenUpdate = () => {
+        setOpenUpdate(true);
       };
-      let handleClose = () => {
-        setOpen(false);
+      let handleCloseUpdate = () => {
+        setOpenUpdate(false);
+      };
+      let handleOpenReview = () => {
+        setOpenReview(true);
+      };
+      let handleCloseReview = () => {
+        setOpenReview(false);
       };
       let deleteData = () => {
         console.log(`${gridData[0]}`);
         serverCalls.delete(`${gridData[0]}`);
         getData()
       };
+      let sendToExchange = async () => {
+        let album = await serverCalls.getOne(token, `${gridData[0]}`)
+        serverCalls.sendToExchange(album)
+      };
   
       console.log(gridData)
       const MyAuth = localStorage.getItem('myAuth');
+
       if (MyAuth == 'true') {
       return (
-          <div style={{ height: 400, width: '100%' }}>
+          <div style={{ height: 400, width: '100%', backgroundColor:'beige' }}>
             <DataGrid
                 rows={albumData}
                 columns={columns}
-                pageSize={5}
-                rowsPerPageOptions={[5]}
+                pageSize={15}
+                rowsPerPageOptions={[15]}
                 checkboxSelection
                 onSelectionModelChange={(newSelectionModel) => {setData(newSelectionModel)}}
                 {...albumData}
             />
-            <Button onClick={handleOpen}>Update</Button>
+            <Button variant='contained' color='secondary' onClick={handleOpenUpdate}>Update</Button>
             <Button variant='contained' color='secondary' onClick={deleteData}>Delete</Button>
-            {/* Dialog Open */}
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+            <Button variant='contained' color='secondary' onClick={handleOpenReview}>Review</Button>
+            <Button variant='contained' color='secondary' onClick={sendToExchange}>Send to Exchange</Button>
+            {/* sendToExchange would just make the api call to the get one endpoint to send to new database */}
+            {/* Dialogs */}
+            <Dialog open={openUpdate} onClose={handleCloseUpdate} aria-labelledby="form-dialog-title">
               <DialogTitle id='form-dialog-title'>Update An Album's information</DialogTitle>
               <DialogContent>
                 <DialogContentText>Album id: {gridData[0]}</DialogContentText>
                 <UpdateForm id={`${gridData[0]}`} />
                 <DialogActions>
-                  <Button onClick={handleClose} color='primary'>Cancel</Button>
-                  <Button onClick={handleClose} color='primary'>Done</Button>
+                  <Button onClick={handleCloseUpdate} color='primary'>Cancel</Button>
+                  <Button onClick={handleCloseUpdate} color='primary'>Done</Button>
+                </DialogActions>
+              </DialogContent>
+            </Dialog>
+            <Dialog open={openReview} onClose={handleCloseReview} aria-labelledby="form-dialog-title">
+              <DialogTitle id='form-dialog-title'>Review Your Album</DialogTitle>
+              <DialogContent>
+                <DialogContentText>Album title: {gridData[1]}</DialogContentText>
+                <ReviewForm id={`${gridData[0]}`} />
+                <DialogActions>
+                  <Button onClick={handleCloseReview} color='primary'>Cancel</Button>
+                  <Button onClick={handleCloseReview} color='primary'>Done</Button>
                 </DialogActions>
               </DialogContent>
             </Dialog>

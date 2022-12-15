@@ -10,7 +10,9 @@ import { chooseTitle,
         chooseTracks,
         chooseDeezerId,
         chooseCover,
-        chooseUser
+        chooseUser,
+        chooseRating,
+        chooseReview
     } from '../../redux/slices/rootSlice';
 import { Input } from '../sharedComponents/Input';
 import { serverCalls } from '../../api';
@@ -77,6 +79,7 @@ export const AlbumForm = (props:AlbumFormProps) => {
                 dispatch(chooseUser(localStorage.getItem('userId')))
                 console.log(store.getState());
                 await serverCalls.create(store.getState());
+                console.log(typeof(data.release_date))
                 window.location.reload();
             };
             showAlbumData(title)
@@ -153,6 +156,7 @@ export const UpdateForm = (props:AlbumFormProps) => {
                 const deezerId = data.data[0].id;
                 const newResponse = await fetch(`https://api.deezer.com/album/${deezerId}`)
                 const fullData = await newResponse.json()
+                console.log(fullData.release_date)
                 return fullData
             };
             
@@ -170,6 +174,7 @@ export const UpdateForm = (props:AlbumFormProps) => {
                 console.log(store.getState());
                 await serverCalls.create(store.getState());
                 window.location.reload();
+                console.log(data.release_date)
             };
             showAlbumData(title)
             // dispatch(chooseTitle(title));
@@ -190,24 +195,55 @@ export const UpdateForm = (props:AlbumFormProps) => {
                     <Input {...register('album_title')} name='album_title' placeholder='Album Title' />
                 </div>
                 <div>
-                    <label htmlFor="artist_name">Artist Name (optional)</label>
+                    <label htmlFor="artist_name">Artist Name</label>
                     <Input {...register('artist_name')} name='artist_name' placeholder='Artist Name' />
                 </div>
                 <div>
-                    <label htmlFor="release_date">Release Date (optional)</label>
+                    <label htmlFor="release_date">Release Date</label>
                     <Input {...register('release_date')} name="release_date" placeholder='Release Date' />
                 </div>
                 <div>
-                    <label htmlFor="genre">Genre (optional)</label>
+                    <label htmlFor="genre">Genre</label>
                     <Input {...register('genre')} name='genre' placeholder='Genre' />
                 </div>
                 <div>
-                    <label htmlFor="number_of_tracks">Number of Tracks (optional)</label>
+                    <label htmlFor="number_of_tracks">Number of Tracks</label>
                     <Input {...register('number_of_tracks')} name='number_of_tracks' placeholder='Number of Tracks' />
                 </div>
                 <div>
-                    <label htmlFor="label">Label (optional)</label>
+                    <label htmlFor="label">Label</label>
                     <Input {...register('label')} name="label" placeholder='Label' />
+                </div>
+                <Button type='submit'>Submit</Button>
+            </form>
+        </div>
+    )
+};
+
+export const ReviewForm = (props:AlbumFormProps) => {
+    const dispatch = useDispatch();
+    let { albumData, getData } = useGetData() ;
+    const store = useStore();
+    const { register, handleSubmit } = useForm({  });
+
+    const onSubmit = async (data:any, event:any) => {
+        console.log(data)
+        let token = localStorage.getItem('userId')
+
+        console.log(props);
+        await serverCalls.review(token, props.id!, data);
+        window.location.reload()
+    };
+    return (
+        <div>
+            <form onSubmit={ handleSubmit(onSubmit) }>
+                <div>
+                    <label htmlFor='rating'>How Would You Rate This Album?</label>
+                    <Input {...register('rating')} name='rating' placeholder='Rating Here, (/10 usually)' />
+                </div>
+                <div>
+                    <label htmlFor='review'>Thoughts on the album?</label>
+                    <Input {...register('review')} name='review' placeholder='Your Review Here' />
                 </div>
                 <Button type='submit'>Submit</Button>
             </form>

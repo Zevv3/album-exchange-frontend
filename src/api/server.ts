@@ -30,13 +30,26 @@ export const serverCalls = {
     },
 
     update: async (token:any, id:string, data:any = {}) => {
-    const response = await fetch(`http://127.0.0.1:5000/api/albums/${token}/${id}`, {
+        const response = await fetch(`http://127.0.0.1:5000/api/albums/${token}/${id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data)
         });
+    },
+
+    getOne: async (token:any, id:string) => {
+        const response = await fetch(`http://127.0.0.1:5000/api/albums/${token}/${id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+        if (!response.ok) {
+            throw new Error('Failed to fetch data from server')
+        }
+        return await response.json()
     },
 
     delete: async (id:string) => {
@@ -46,5 +59,43 @@ export const serverCalls = {
                 'Content-Type': 'application/json',
             }
         });
-    }
+    },
+
+    review: async (token:any, id:string, data:any = {}) => {
+        const response = await fetch(`http://127.0.0.1:5000/api/albums/review/${token}/${id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+    },
+
+    sendToExchange: async (data:any) => {
+        const response = await fetch(`http://127.0.0.1:5000/api/exchange`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-access-token': `bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        });
+        if (!response.ok) {
+            throw new Error('Failed to create new data on server')
+        }
+        return await response.json()
+    },
+
+    getExchange: async () => {
+        const response = await fetch(`http://127.0.0.1:5000/api/exchange`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+        if (!response.ok) {
+            throw new Error('Failed to fetch data from server')
+        }
+        return await response.json()
+    },
 };

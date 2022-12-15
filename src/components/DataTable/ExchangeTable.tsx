@@ -9,11 +9,12 @@ import {
     DialogTitle
 } from '@mui/material';
 import { getAuth } from 'firebase/auth';
+import { serverCalls } from '../../api';
+import { useGetExchange } from '../../custom-hooks';
+
 
 const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 90 },
-    // I would like to add a column that is just the cover art
-    // I'll use the cover_url and display that image... hopefully
     {
       field: 'album_title',
       headerName: 'Album title',
@@ -27,9 +28,9 @@ const columns: GridColDef[] = [
       editable: true,
     },
     {
-      field: 'year',
-      headerName: 'Year',
-      width: 110,
+      field: 'release_date',
+      headerName: 'Release Date',
+      width: 150,
       editable: true,
     },
     {
@@ -40,7 +41,7 @@ const columns: GridColDef[] = [
     },
     {
       field: 'number_of_tracks',
-      headerName: 'Number Of Tracks',
+      headerName: 'Tracks',
       width: 75,
       editable: true,
     },
@@ -49,6 +50,18 @@ const columns: GridColDef[] = [
       headerName: 'Label',
       width: 200,
       editable:true
+    },
+    {
+      field: 'rating',
+      headerName: 'Rating',
+      width: 75,
+      editable: true
+    },
+    {
+      field: 'review',
+      headerName: 'Review',
+      width: 700,
+      editable: true
     }
 ];
 
@@ -56,11 +69,23 @@ interface gridData{
     data:{
       id?:string;
     };
-  };
-  
+};
 
-export const DataTable = () => {
+export const ExchangeTable = () => {
+    let { exchangeData, getData } = useGetExchange();
+    let [gridData, setData] = useState<GridSelectionModel>([]);
+
     return (
-        <h1>Data Table Here</h1>
+        <div style={{ height: 400, width: '100%', backgroundColor: 'beige' }}>
+            <DataGrid
+                rows={exchangeData}
+                columns={columns}
+                pageSize={15}
+                rowsPerPageOptions={[15]}
+                checkboxSelection
+                onSelectionModelChange={(newSelectionModel) => {setData(newSelectionModel)}}
+                {...exchangeData}
+            />
+        </div>
     )
 }
