@@ -59,8 +59,8 @@ export const Exchange = () => {
             <Box sx={ myStyles.content }>
                 <h1>Hidden text for spacing</h1>
                 <h6>More spacing</h6>
-                <h1>Here, you can view the albums in the current album exchange</h1>
-                <h2>Albums in Exchange:</h2>
+                <h1 style={{color:'white'}}>Here, you can view the albums in the current album exchange</h1>
+                <h2 style={{color:'white'}}>Albums in Exchange:</h2>
                 <ExchangeTable />
             </Box>
         </Box>

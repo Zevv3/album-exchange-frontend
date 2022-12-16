@@ -135,11 +135,11 @@ export const NavBar = () => {
             text: 'Home',
             onClick: () => navigate('/')
         },
-        {
-            // We don't have this yet
-            text: 'Search',
-            onClick: () => navigate('/search')
-        },
+        // {
+        //     // We don't have this yet
+        //     text: 'Search',
+        //     onClick: () => navigate('/search')
+        // },
         {
             text: 'Sign In',
             onClick: () => navigate('/signin')
@@ -155,11 +155,11 @@ export const NavBar = () => {
             text: 'Home',
             onClick: () => navigate('/')
         },
-        {
-            // We don't have this yet
-            text: 'Search',
-            onClick: () => navigate('/search')
-        },
+        // {
+        //     // We don't have this yet
+        //     text: 'Search',
+        //     onClick: () => navigate('/search')
+        // },
         {
             // We don't have this yet either
             text: 'Exchange',

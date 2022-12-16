@@ -227,10 +227,10 @@ export const ReviewForm = (props:AlbumFormProps) => {
     const { register, handleSubmit } = useForm({  });
 
     const onSubmit = async (data:any, event:any) => {
-        console.log(data)
+        console.log(typeof data)
         let token = localStorage.getItem('userId')
 
-        console.log(props);
+        console.log(props.id);
         await serverCalls.review(token, props.id!, data);
         window.location.reload()
     };

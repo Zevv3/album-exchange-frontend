@@ -61,7 +61,7 @@ export const serverCalls = {
         });
     },
 
-    review: async (token:any, id:string, data:any = {}) => {
+    review: async (token:any, id:string, data:any) => {
         const response = await fetch(`https://yummy-charming-promise.glitch.me/api/albums/review/${token}/${id}`, {
             method: 'POST',
             headers: {

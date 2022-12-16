@@ -92,10 +92,10 @@ export const Profile = () => {
             <Box sx={ myStyles.content }>
             <h1>Hidden text for spacing</h1>
             <h6>More spacing</h6>
-                <h1>Welcome back to the Album Exchange!</h1>
-                <h3>Below, you can view the albums you have favorited and submit any of them to the next Exchange.</h3>
+                <h1 style={{color:'white'}}>Welcome back to the Album Exchange!</h1>
+                <h3 style={{color:'white'}}>Below, you can view the albums you have favorited and submit any of them to the next Exchange.</h3>
                 {/* <p>Your Token: {userId}</p> */}
-                <h2>Albums In Your Library</h2>
+                <h2 style={{color:'white'}}>Albums In Your Library</h2>
                 <Button sx = { myStyles.toolbar_button } onClick={handleDialogClickOpen}>Add An Album</Button>
                     <Dialog open={dialogOpen} onClose={handleDialogClickClose} aria-labelledby='form-dialog-title'>
                         <DialogTitle id='form-dialog-title'>Add New Album</DialogTitle>

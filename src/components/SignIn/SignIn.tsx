@@ -16,13 +16,16 @@ import {
     Alert as MUIAlert,
     AlertProps,
     AlertTitle,
-    CircularProgress
+    CircularProgress,
+    Box,
+    CssBaseline
 } from '@mui/material';
 import { useNavigate, Link } from 'react-router-dom';
 import { styled } from '@mui/system';
 import { useForm } from 'react-hook-form'
 
-import { Input, Input2, Navbar } from '../sharedComponents';
+import records from '../../assets/images/records.jpg'
+import { Input, Input2, NavBar } from '../sharedComponents';
 
 const signinStyles = {
     googleButton:{
@@ -61,6 +64,18 @@ const signinStyles = {
     }
 };
 
+const myStyles = {
+    content: {
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(6, 85, 121, 1)), url(${records});`,
+        width: "100%",
+        height: "1250px",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        position: "absolute"
+    },
+};
+
 const NavA = styled(Link) ({
     display: 'block',
     color: 'black',
@@ -87,6 +102,7 @@ interface userProps {
     password?: any
 };
 
+
 export const GoogleButton = (props:buttonProps) =>{
     const navigate = useNavigate();
     const provider = new GoogleAuthProvider();
@@ -101,7 +117,7 @@ export const GoogleButton = (props:buttonProps) =>{
         localStorage.setItem('userId', user.uid)
         };
     });
-        navigate('/dashboard')
+        navigate('/profile')
     };
     const signUsOut = async () => {
         await signOut(auth)
@@ -143,6 +159,7 @@ export const SignIn = () => {
                 localStorage.setItem('auth', 'true')
                 const user = userCredential.user
                 localStorage.setItem('userId', user.uid)
+                console.log(localStorage.getItem('userId'))
                 navigate('/profile')
             })
             .catch((error) => {
@@ -154,8 +171,12 @@ export const SignIn = () => {
     
     return (
         <Root>
-           <Navbar />
-        <Container maxWidth='sm' sx={signinStyles.containerStyle}>
+           <CssBaseline />
+            <NavBar />
+            <Box sx={ myStyles.content }>
+            <h1>Hidden text for spacing</h1>
+            <h6>More spacing</h6>
+        <Container maxWidth='sm' sx={signinStyles.containerStyle} style={{backgroundColor: 'beige'}}>
             <Typography sx={signinStyles.typographyStyle}>
                 Sign In Below
             </Typography>
@@ -178,6 +199,7 @@ export const SignIn = () => {
                 </Alert>
             </Snackbar>
         </Container>
+        </Box>
         </Root>
     );
 };
@@ -213,8 +235,12 @@ export const SignUp = (props:userProps) => {
 
     return (
         <Root>
-            <Navbar/>
-        <Container maxWidth='sm' sx={signinStyles.containerStyle}>
+            <CssBaseline />
+            <NavBar />
+            <Box sx={ myStyles.content }>
+            <h1>Hidden text for spacing</h1>
+            <h6>More spacing</h6>
+        <Container maxWidth='sm' sx={signinStyles.containerStyle} style={{backgroundColor: 'beige'}}>
             <Typography sx={signinStyles.typographyStyle}>
                 Create Your Account Below
             </Typography>
@@ -224,17 +250,19 @@ export const SignUp = (props:userProps) => {
                     <Input  {...register('email')} name='email' placeholder='enter email here...' />
                 </div>
                 <div>
-                    <label htmlFor='password'>Password</label>
-                    <Input2  {...register('password')} name='password' placeholder='enter password here... or else' />
+                    <label htmlFor='password'>Password - 6 character minimum</label>
+                    <Input2  {...register('password')} name='password' placeholder='enter password here' />
                 </div>
                 <Button type='submit'>Submit</Button>
             </form>
+            <GoogleButton open={open} onClick={handleSnackClose} />
             <Snackbar message='Success' open={open} autoHideDuration={3000}>
                 <Alert severity='success'>
                     <AlertTitle>Succesful Sign Up --- Redirecting...</AlertTitle>
                 </Alert>
             </Snackbar>
         </Container>
+        </Box>
         </Root>
     );
 };

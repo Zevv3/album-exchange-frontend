@@ -101,7 +101,8 @@ interface gridData{
       };
   
       console.log(gridData)
-      const MyAuth = localStorage.getItem('myAuth');
+      const MyAuth = localStorage.getItem('auth');
+      console.log(MyAuth)
 
       if (MyAuth == 'true') {
       return (

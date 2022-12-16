@@ -13,6 +13,7 @@ import { Home } from './components/Home'
 import { Profile } from './components/Profile'
 import { SignIn, SignUp } from './components/SignIn'
 import { Exchange } from './components/Exchange'
+import { Search } from './components/Search'
 import { store } from './redux/store'
 import { theme } from './Theme/themes'
 
@@ -31,6 +32,7 @@ root.render(
               <Route path='/signin' element={<SignIn />} />
               <Route path='/signup' element={<SignUp />} />
               <Route path='/exchange' element={<Exchange />} />
+              <Route path='/search' element={<Search />} />
             </Routes>
           </Router>
         </ThemeProvider>

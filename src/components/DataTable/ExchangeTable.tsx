@@ -11,6 +11,7 @@ import {
 import { getAuth } from 'firebase/auth';
 import { serverCalls } from '../../api';
 import { useGetExchange } from '../../custom-hooks';
+import { ReviewForm } from '../AlbumForm';
 
 
 const columns: GridColDef[] = [
@@ -72,8 +73,28 @@ interface gridData{
 };
 
 export const ExchangeTable = () => {
+    let token = localStorage.getItem('userId')
     let { exchangeData, getData } = useGetExchange();
+    let [openReview, setOpenReview] = useState(false);
     let [gridData, setData] = useState<GridSelectionModel>([]);
+
+  // let startExchange = async (exchangeData) => {
+    /**I want this to randomize the user token assigned to each album
+     * I'll have to collect the user_token when it is submitted though
+     * Also, I probably shouldn't display the token on this screen.
+     */
+  // }
+    let handleOpenReview = () => {
+      setOpenReview(true);
+    };
+    let handleCloseReview = () => {
+      setOpenReview(false);
+    };
+    let deleteData = () => {
+      console.log(`${gridData[0]}`);
+      serverCalls.delete(`${gridData[0]}`);
+      getData()
+    };
 
     return (
         <div style={{ height: 400, width: '100%', backgroundColor: 'beige' }}>
@@ -86,6 +107,20 @@ export const ExchangeTable = () => {
                 onSelectionModelChange={(newSelectionModel) => {setData(newSelectionModel)}}
                 {...exchangeData}
             />
+            {/* <Button variant='contained' color='secondary' onClick={deleteData}>Delete</Button> */}
+            <Button variant='contained' color='secondary' onClick={handleOpenReview}>Review</Button>
+            {/* <Button variant='contained' color='secondary'>Start an Exchange!</Button> */}
+            <Dialog open={openReview} onClose={handleCloseReview} aria-labelledby="form-dialog-title">
+              <DialogTitle id='form-dialog-title'>Review Your Album</DialogTitle>
+              <DialogContent>
+                <DialogContentText>Album id: {gridData[0]}</DialogContentText>
+                <ReviewForm id={`${gridData[0]}`} />
+                <DialogActions>
+                  <Button onClick={handleCloseReview} color='primary'>Cancel</Button>
+                  <Button onClick={handleCloseReview} color='primary'>Done</Button>
+                </DialogActions>
+              </DialogContent>
+            </Dialog>
         </div>
     )
 }
