@@ -11,7 +11,7 @@ import {
 import { getAuth } from 'firebase/auth';
 import { serverCalls } from '../../api';
 import { useGetExchange } from '../../custom-hooks';
-import { ReviewForm } from '../AlbumForm';
+import { ExchangeReviewForm } from '../AlbumForm';
 
 
 const columns: GridColDef[] = [
@@ -114,7 +114,7 @@ export const ExchangeTable = () => {
               <DialogTitle id='form-dialog-title'>Review Your Album</DialogTitle>
               <DialogContent>
                 <DialogContentText>Album id: {gridData[0]}</DialogContentText>
-                <ReviewForm id={`${gridData[0]}`} />
+                <ExchangeReviewForm id={`${gridData[0]}`} />
                 <DialogActions>
                   <Button onClick={handleCloseReview} color='primary'>Cancel</Button>
                   <Button onClick={handleCloseReview} color='primary'>Done</Button>

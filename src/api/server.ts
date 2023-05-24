@@ -102,7 +102,7 @@ export const serverCalls = {
     reviewExchange: async (token:any, id:string, data:any) => {
         // I definitely want the token and id here, I'll want to check that the token matches the one given to the album 
         // during the exchange randomization
-        const response = await fetch(`https://yummy-charming-promise.glitch.me/api/exchange/review`, {
+        const response = await fetch(`https://yummy-charming-promise.glitch.me/api/exchange/review/${token}/${id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

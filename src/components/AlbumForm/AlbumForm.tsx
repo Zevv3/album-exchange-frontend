@@ -239,11 +239,42 @@ export const ReviewForm = (props:AlbumFormProps) => {
             <form onSubmit={ handleSubmit(onSubmit) }>
                 <div>
                     <label htmlFor='rating'>How Would You Rate This Album?</label>
-                    <Input {...register('rating')} name='rating' placeholder='Rating Here, (/10 usually)' />
+                    <Input {...register('rating')} name='rating' placeholder='Rating Here, (x/10 usually)' />
                 </div>
                 <div>
                     <label htmlFor='review'>Thoughts on the album?</label>
                     <Input {...register('review')} name='review' placeholder='Your Review Here' />
+                </div>
+                <Button type='submit'>Submit</Button>
+            </form>
+        </div>
+    )
+}
+
+export const ExchangeReviewForm = (props:AlbumFormProps) => {
+    const dispatch = useDispatch();
+    let { albumData, getData } = useGetData() ;
+    const store = useStore();
+    const { register, handleSubmit } = useForm({  });
+
+    const onSubmit = async (data:any, event:any) => {
+        console.log(typeof data)
+        let token = localStorage.getItem('userId')
+
+        console.log(props.id);
+        await serverCalls.reviewExchange(token, props.id!, data);
+        window.location.reload()
+    };
+    return (
+        <div>
+            <form onSubmit={ handleSubmit(onSubmit) }>
+                <div>
+                    <label htmlFor='exchange-rating'>How Would You Rate This Album?</label>
+                    <Input {...register('exchange-rating')} name='exchange-rating' placeholder='Rating Here, (x/10 usually)' />
+                </div>
+                <div>
+                    <label htmlFor='exchange-review'>Thoughts on the album?</label>
+                    <Input {...register('exchange-review')} name='exchange-review' placeholder='Your Review Here' />
                 </div>
                 <Button type='submit'>Submit</Button>
             </form>
