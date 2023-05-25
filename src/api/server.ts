@@ -110,4 +110,17 @@ export const serverCalls = {
             body: JSON.stringify(data)
         });
     },
+
+    startExchange: async (token:any) => {
+        const response = await fetch(`https://yummy-charming-promise.glitch.me/api/exchange/review/${token}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+        if (!response.ok) {
+            throw new Error('Failed to fetch data from server')
+        }
+        return await response.json()
+    }
 };
