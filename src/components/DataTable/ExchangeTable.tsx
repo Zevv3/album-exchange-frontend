@@ -63,6 +63,12 @@ const columns: GridColDef[] = [
       headerName: 'Review',
       width: 700,
       editable: true
+    },
+    {
+      field: 'user',
+      headerName: 'User',
+      width: 700,
+      editable: true
     }
 ];
 
