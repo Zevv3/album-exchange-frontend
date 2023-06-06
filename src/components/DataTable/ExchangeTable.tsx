@@ -83,7 +83,7 @@ export const ExchangeTable = () => {
     let { exchangeData, getData } = useGetExchange();
     let [openReview, setOpenReview] = useState(false);
     let [gridData, setData] = useState<GridSelectionModel>([]);
-
+    console.log(exchangeData)
   // let startExchange = async (exchangeData) => {
     /**I want this to randomize the user token assigned to each album
      * I'll have to collect the user_token when it is submitted though

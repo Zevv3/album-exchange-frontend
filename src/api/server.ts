@@ -71,8 +71,8 @@ export const serverCalls = {
         });
     },
 
-    sendToExchange: async (data:any) => {
-        const response = await fetch(`https://yummy-charming-promise.glitch.me/api/exchange`, {
+    sendToExchange: async (token:any, data:any) => {
+        const response = await fetch(`https://yummy-charming-promise.glitch.me/api/exchange/${token}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

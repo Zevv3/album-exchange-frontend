@@ -97,7 +97,7 @@ interface gridData{
       };
       let sendToExchange = async () => {
         let album = await serverCalls.getOne(token, `${gridData[0]}`)
-        serverCalls.sendToExchange(album)
+        serverCalls.sendToExchange(token, album)
       };
   
       console.log(gridData)
