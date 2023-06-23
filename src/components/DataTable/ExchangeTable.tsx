@@ -65,7 +65,7 @@ const columns: GridColDef[] = [
       editable: true
     },
     {
-      field: 'user',
+      field: 'user_token',
       headerName: 'User',
       width: 700,
       editable: true
@@ -96,11 +96,14 @@ export const ExchangeTable = () => {
     let handleCloseReview = () => {
       setOpenReview(false);
     };
-    let deleteData = () => {
-      console.log(`${gridData[0]}`);
-      serverCalls.delete(`${gridData[0]}`);
+    let clearExchange = () => {
+      serverCalls.clearExchange(token);
       getData()
     };
+    let startExchange = () => {
+      serverCalls.startExchange(token);
+      getData()
+    }
 
     return (
         <div style={{ height: 400, width: '100%', backgroundColor: 'beige' }}>
@@ -127,6 +130,8 @@ export const ExchangeTable = () => {
                 </DialogActions>
               </DialogContent>
             </Dialog>
+            <Button variant='contained' color='secondary' onClick={startExchange}>Start Exchange!</Button>
+            <Button variant='contained' color='secondary' onClick={clearExchange}>Clear Exchange</Button>
         </div>
     )
 }

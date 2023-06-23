@@ -110,18 +110,32 @@ export const serverCalls = {
             },
             body: JSON.stringify(data)
         });
+        if (!response.ok){
+            throw new Error("You can't review some else's album!")
+        }
     },
 
     startExchange: async (token:any) => {
-        const response = await fetch(`https://yummy-charming-promise.glitch.me/api/exchange/review/${token}`, {
-            method: 'GET',
+        const response = await fetch(`https://yummy-charming-promise.glitch.me/api/exchange/start/${token}`, {
+            method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'x-access-token': token
             },
         });
         if (!response.ok) {
             throw new Error('Failed to fetch data from server')
         }
         return await response.json()
+    },
+
+    clearExchange: async (token:any) => {
+        const response = await fetch(`https://yummy-charming-promise.glitch.me/api/exchange/clear/${token}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-access-token': token
+            },
+        })
     }
 };
