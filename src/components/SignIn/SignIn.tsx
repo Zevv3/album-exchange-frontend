@@ -115,7 +115,9 @@ export const GoogleButton = (props:buttonProps) =>{
 
         if (user) {
         localStorage.setItem('userId', user.uid)
-        };
+        if (user.email) {
+            localStorage.setItem('userEmail', user.email);
+        }};
     });
         navigate('/profile')
     };
@@ -159,7 +161,8 @@ export const SignIn = () => {
                 localStorage.setItem('auth', 'true')
                 const user = userCredential.user
                 localStorage.setItem('userId', user.uid)
-                console.log(localStorage.getItem('userId'))
+                localStorage.setItem('userEmail', data.email)
+                console.log(localStorage.getItem('userEmail'))
                 navigate('/profile')
             })
             .catch((error) => {

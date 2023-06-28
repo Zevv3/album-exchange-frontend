@@ -1,4 +1,5 @@
 let token = localStorage.getItem('userId')
+let email = localStorage.getItem('userEmail')
 
 export const serverCalls = {
     get: async () => {
@@ -71,8 +72,8 @@ export const serverCalls = {
         });
     },
 
-    sendToExchange: async (token:any, data:any) => {
-        const response = await fetch(`https://yummy-charming-promise.glitch.me/api/exchange/${token}`, {
+    sendToExchange: async (token:any, email:any, data:any) => {
+        const response = await fetch(`https://yummy-charming-promise.glitch.me/api/exchange/${token}/${email}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -77,6 +77,7 @@ interface gridData{
       let [openReview, setOpenReview] = useState(false);
       let [gridData, setData] = useState<GridSelectionModel>([]);
       let token = localStorage.getItem('userId')
+      let email = localStorage.getItem('userEmail')
   
       let handleOpenUpdate = () => {
         setOpenUpdate(true);
@@ -97,7 +98,7 @@ interface gridData{
       };
       let sendToExchange = async () => {
         let album = await serverCalls.getOne(token, `${gridData[0]}`)
-        serverCalls.sendToExchange(token, album)
+        serverCalls.sendToExchange(token, email, album)
       };
   
       console.log(gridData)

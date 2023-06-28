@@ -13,6 +13,7 @@ const rootSlice = createSlice({
         deezer_id: '12391914',
         rating: '',
         review: '',
+        user_email: 'test@email.com',
         user_token: 'GDu5zSE4HmQ4aYU32ALrQeyrnB93'
     },
     reducers: {
@@ -26,9 +27,10 @@ const rootSlice = createSlice({
         chooseDeezerId: (state, action) => { state.deezer_id = action.payload },
         chooseRating: (state, action) => { state.rating = action.payload },
         chooseReview: (state, action) => { state.review = action.payload },
+        chooseEmail: (state, action) => {state.user_email = action.payload},
         chooseUser: (state, action) => { state.user_token = action.payload }
     }
 });
 
 export const reducer = rootSlice.reducer;
-export const { chooseArtist, chooseTitle, chooseReleaseDate, chooseGenre, chooseTracks, chooseLabel, chooseCover, chooseDeezerId, chooseUser, chooseRating, chooseReview } = rootSlice.actions;
+export const { chooseArtist, chooseTitle, chooseReleaseDate, chooseGenre, chooseTracks, chooseLabel, chooseCover, chooseDeezerId, chooseUser, chooseRating, chooseReview, chooseEmail } = rootSlice.actions;

@@ -64,8 +64,14 @@ const columns: GridColDef[] = [
       width: 700,
       editable: true
     },
+    // {
+    //   field: 'user_token',
+    //   headerName: 'User',
+    //   width: 700,
+    //   editable: true
+    // },
     {
-      field: 'user_token',
+      field: 'user_email',
       headerName: 'User',
       width: 700,
       editable: true

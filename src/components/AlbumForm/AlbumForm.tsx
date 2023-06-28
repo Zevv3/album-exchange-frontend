@@ -11,6 +11,7 @@ import { chooseTitle,
         chooseDeezerId,
         chooseCover,
         chooseUser,
+        chooseEmail,
         chooseRating,
         chooseReview
     } from '../../redux/slices/rootSlice';
@@ -77,6 +78,7 @@ export const AlbumForm = (props:AlbumFormProps) => {
                 dispatch(chooseDeezerId(data.id))
                 dispatch(chooseCover(data.cover))
                 dispatch(chooseUser(localStorage.getItem('userId')))
+                dispatch(chooseEmail(localStorage.getItem('user_email')))
                 console.log(store.getState());
                 await serverCalls.create(store.getState());
                 console.log(typeof(data.release_date))
@@ -171,6 +173,7 @@ export const UpdateForm = (props:AlbumFormProps) => {
                 // dispatch(chooseDeezerId(data.id))
                 // dispatch(chooseCover(data.cover))
                 dispatch(chooseUser(localStorage.getItem('userId')))
+                dispatch(chooseEmail(localStorage.getItem('user_email')))
                 console.log(store.getState());
                 await serverCalls.create(store.getState());
                 window.location.reload();
